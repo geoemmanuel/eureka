@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: load-balancer-client
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+      cache:
+        enabled: true
+        ttl: 5s
+      configurations:
+        user-service:
+          hint:
+            service-instance-list-strategy: round-robin
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# Actuator configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
